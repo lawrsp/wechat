@@ -36,9 +36,9 @@
     - [ ] 消息分析
     - [ ] 接口分析
 
-* [0/8] 微信小程序
-  - [ ] 登陆: 支持wx.login获取的jscode换取sesionkey
-  - [ ] 获取accesstoken
+* [2/7] 微信小程序
+  - [X] 登陆: 支持wx.login获取的jscode换取sesionkey
+  - [X] 获取accesstoken
   - [ ] 数据校验及解密
   - [ ] 生物认证
   - [ ] 消息
