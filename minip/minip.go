@@ -8,12 +8,18 @@ import (
 )
 
 type MiniP struct {
-	AppID     string
-	AppSecret string
+	AppID        string
+	AppSecret    string
+	token        string
+	tokenExpires int
 }
 
 func New(appid, secret string) *MiniP {
-	return &MiniP{appid, secret}
+	return &MiniP{AppID: appid, AppSecret: secret}
+}
+
+func (m *MiniP) AccessToken() string {
+	return m.token
 }
 
 type parser struct{}
