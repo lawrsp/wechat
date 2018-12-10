@@ -5,18 +5,18 @@ import (
 	"net/http"
 )
 
-const code2SessionURLFormat = "https://api.weixin.qq.com/sns/code2accessToken?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
+const code2AccessTokenURLFormat = "https://api.weixin.qq.com/sns/code2accessToken?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
 
-// Code2SessionResponse
-type Code2SessionResponse struct {
+// Code2AccessTokenResponse
+type Code2AccessTokenResponse struct {
 	OpenID     string `json:"openid"`
 	SessionKey string `json:"session_key"`
 	UnionID    string `json:"unionid,omitempty"`
 }
 
-// Code2SessionRequest
-func (mp *MiniP) Code2SessionRequest(jsCode string) (*http.Request, error) {
-	url := fmt.Sprintf(code2SessionURLFormat, mp.AppID, mp.AppSecret, jsCode)
+// Code2AccessTokenRequest
+func (mp *MiniP) Code2AccessTokenRequest(jsCode string) (*http.Request, error) {
+	url := fmt.Sprintf(code2AccessTokenURLFormat, mp.AppID, mp.AppSecret, jsCode)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("create code2accessToken request failed: %v", err)
@@ -25,22 +25,22 @@ func (mp *MiniP) Code2SessionRequest(jsCode string) (*http.Request, error) {
 	return req, nil
 }
 
-// Code2Session
+// Code2AccessToken
 // https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/code2accessToken.html
-func (mp *MiniP) Code2Session(jsCode string) (*Code2SessionResponse, error) {
+func (mp *MiniP) Code2AccessToken(jsCode string) (*Code2AccessTokenResponse, error) {
 	client := DefaultClient
 
-	req, err := mp.Code2SessionRequest(jsCode)
+	req, err := mp.Code2AccessTokenRequest(jsCode)
 	if err != nil {
 		return nil, fmt.Errorf("create code2accessToken request failed: %v", err)
 	}
 
 	out := struct {
 		*Error
-		*Code2SessionResponse
+		*Code2AccessTokenResponse
 	}{
 		&Error{},
-		&Code2SessionResponse{},
+		&Code2AccessTokenResponse{},
 	}
 	if err := client.GetReply(req, out); err != nil {
 		return nil, fmt.Errorf("get code2accessToken reply failed: %v", err)
@@ -50,5 +50,5 @@ func (mp *MiniP) Code2Session(jsCode string) (*Code2SessionResponse, error) {
 		return nil, out.Error
 	}
 
-	return out.Code2SessionResponse, nil
+	return out.Code2AccessTokenResponse, nil
 }
