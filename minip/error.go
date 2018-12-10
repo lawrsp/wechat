@@ -17,7 +17,7 @@ func (e *Error) IsBusy() bool {
 
 func (e *Error) Error() string {
 	if e.Code == 0 {
-		return "failed"
+		return ""
 	}
 
 	return fmt.Sprintf("%d:%s", e.Code, e.Message)
