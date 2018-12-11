@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-const code2SessionURLFormat = "https://api.weixin.qq.com/sns/code2accessToken?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
+const code2SessionURLFormat = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
 
 // Code2SessionResponse
 type Code2SessionResponse struct {
