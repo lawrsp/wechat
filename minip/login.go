@@ -1,6 +1,7 @@
 package minip
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 )
@@ -15,9 +16,10 @@ type Code2SessionResponse struct {
 }
 
 // Code2SessionRequest
-func (mp *MiniP) Code2SessionRequest(jsCode string) (*http.Request, error) {
+func (mp *MiniP) Code2SessionRequest(ctx context.Context, jsCode string) (*http.Request, error) {
 	url := fmt.Sprintf(code2SessionURLFormat, mp.AppID, mp.AppSecret, jsCode)
-	req, err := http.NewRequest("GET", url, nil)
+	fmt.Println("url is:", url)
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("create code2accessToken request failed: %v", err)
 	}
@@ -27,10 +29,10 @@ func (mp *MiniP) Code2SessionRequest(jsCode string) (*http.Request, error) {
 
 // Code2Session
 // https://developers.weixin.qq.com/miniprogram/dev/api/code2Session.html
-func (mp *MiniP) Code2Session(jsCode string) (*Code2SessionResponse, error) {
+func (mp *MiniP) Code2Session(ctx context.Context, jsCode string) (*Code2SessionResponse, error) {
 	client := DefaultClient
 
-	req, err := mp.Code2SessionRequest(jsCode)
+	req, err := mp.Code2SessionRequest(ctx, jsCode)
 	if err != nil {
 		return nil, fmt.Errorf("create code2accessToken request failed: %v", err)
 	}
