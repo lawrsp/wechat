@@ -42,7 +42,7 @@ func (mp *MiniP) Code2Session(jsCode string) (*Code2SessionResponse, error) {
 		&Error{},
 		&Code2SessionResponse{},
 	}
-	if err := client.GetReply(req, out); err != nil {
+	if err := client.GetReply(req, &out); err != nil {
 		return nil, fmt.Errorf("get code2accessToken reply failed: %v", err)
 	}
 
