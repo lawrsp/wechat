@@ -40,7 +40,7 @@ func (c *Client) GetReply(req *http.Request, out interface{}) error {
 		return fmt.Errorf("read body failed: %v", err)
 	}
 
-	if err := c.Parser.Parse(body, resp); err != nil {
+	if err := c.Parser.Parse(body, out); err != nil {
 		return fmt.Errorf("parse body failed: %v", err)
 	}
 
