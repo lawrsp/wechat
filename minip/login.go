@@ -18,7 +18,6 @@ type Code2SessionResponse struct {
 // Code2SessionRequest
 func (mp *MiniP) Code2SessionRequest(ctx context.Context, jsCode string) (*http.Request, error) {
 	url := fmt.Sprintf(code2SessionURLFormat, mp.AppID, mp.AppSecret, jsCode)
-	fmt.Println("url is:", url)
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("create code2accessToken request failed: %v", err)
